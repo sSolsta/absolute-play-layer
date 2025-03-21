@@ -1,0 +1,32 @@
+add_library(libCocosDenshion SHARED
+    CocosDenshion/win32/MciPlayer.cpp
+    CocosDenshion/win32/SimpleAudioEngine.cpp
+)
+
+target_include_directories(libCocosDenshion PUBLIC
+    
+    CocosDenshion/Include
+    CocosDenshion/proj.win32/cocos2dx"
+    CocosDenshion/proj.win32/cocos2dx/include"
+    CocosDenshion/proj.win32/cocos2dx/kazmath/include"
+    CocosDenshion/proj.win32/cocos2dx/platform/win32"
+    CocosDenshion/proj.win32/cocos2dx/platform/third_party/win32/OGLES"
+    CocosDenshion/proj.win32
+)
+
+target_link_libraries(libCocosDenshion
+    winmm.lib
+    libcocos2d.lib
+    
+)
+
+target_compile_definitions(libCocosDenshion PRIVATE
+    WIN32
+    _DEBUG
+    _WINDOWS
+    _USRDLL
+    COCOSDENSHIONWIN32_EXPORTS
+    _EXPORT_DLL_
+    
+)
+

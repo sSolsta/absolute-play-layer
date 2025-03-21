@@ -160,3 +160,16 @@ target_link_libraries(libcocos2d
     
 )
 
+target_compile_definitions(libcocos2d PRIVATE
+    WIN32
+    _DEBUG
+    _WINDOWS
+    _USRDLL
+    COCOS2DXWIN32_EXPORTS
+    GL_GLEXT_PROTOTYPES
+    COCOS2D_DEBUG=1
+    _CRT_SECURE_NO_WARNINGS
+    _SCL_SECURE_NO_WARNINGS
+    
+)
+

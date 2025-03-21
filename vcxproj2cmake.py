@@ -19,8 +19,8 @@ def canonicalise_link(link):
         return os.path.relpath(link)
 
 try:
-    path = r"E:\cocos2d-x-2.2.3\samples\Cpp\HelloCpp\proj.win32\HelloCpp.vcxproj"
-    target_conf = "Release|Win32"
+    path = r"E:\cocos2d-x-2.2.3\CocosDenshion\proj.win32\CocosDenshion.vcxproj"
+    target_conf = "Debug|Win32"
     
     # python is annoying with namespaces
     ns = {"": "http://schemas.microsoft.com/developer/msbuild/2003"}
@@ -31,7 +31,10 @@ try:
     filters_root = filters_tree.getroot()
     
     globals = main_root.find("PropertyGroup[@Label='Globals']", ns)
-    target = (globals.find("ProjectName", ns) or globals.find("RootNamespace", ns)).text
+    if globals.find("ProjectName", ns) is not None:
+        target = globals.find("ProjectName", ns).text
+    else:
+        target = globals.find("RootNamespace", ns).text
     
     for prop_group in main_root.findall("PropertyGroup[@Label='Configuration']", ns):
         if target_conf in prop_group.get("Condition"):
@@ -79,8 +82,12 @@ try:
     defs = item_def_ref.find("ClCompile", ns).find("PreprocessorDefinitions", ns).text
     defs = defs.replace("%(PreprocessorDefinitions)", "").split(";")
     
-    deps = item_def_ref.find("Link", ns).find("AdditionalDependencies", ns).text
-    deps = deps.replace("%(AdditionalDependencies)", "").split(";")
+    def_link = item_def_ref.find("Link", ns)
+    if def_link is not None:
+        deps = def_link.find("AdditionalDependencies", ns).text
+        deps = deps.replace("%(AdditionalDependencies)", "").split(";")
+    else:
+        deps = []
     
     
     type = target_prop.find("ConfigurationType", ns).text
@@ -105,22 +112,25 @@ try:
         for src in srcs:
             f.write("\n    ")
             f.write(src.replace("\\", "/"))
-        
         f.write("\n)\n\n")
         
         f.write(f"target_include_directories({target} PUBLIC")
         for inc in includes:
             f.write("\n    ")
             f.write(inc.replace("\\", "/"))
-        
         f.write("\n)\n\n")
         
+        if deps:
+            f.write(f"target_link_libraries({target}")
+            for dep in deps:
+                f.write("\n    ")
+                f.write(dep.replace("\\", "/"))
+            f.write("\n)\n\n")
         
-        f.write(f"target_link_libraries({target}")
-        for dep in deps:
+        f.write(f"target_compile_definitions({target} PRIVATE")
+        for d in defs:
             f.write("\n    ")
-            f.write(dep.replace("\\", "/"))
-        
+            f.write(d)
         f.write("\n)\n\n")
     
     print(*defs)

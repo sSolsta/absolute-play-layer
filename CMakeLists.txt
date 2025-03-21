@@ -2,8 +2,9 @@ cmake_minimum_required(VERSION 3.31.5)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-project(libcocos2d VERSION 0.1.0)
+project(cocos2d VERSION 0.1.0)
 
+#libcocos2d
 add_library(libcocos2d SHARED
     cocos2dx/base_nodes/CCAtlasNode.cpp
     cocos2dx/base_nodes/CCNode.cpp
@@ -167,16 +168,16 @@ target_link_libraries(libcocos2d
 target_compile_definitions(libcocos2d PRIVATE
     WIN32
     _DEBUG
-    COCOS2D_DEBUG=1
     _WINDOWS
     _USRDLL
     COCOS2DXWIN32_EXPORTS
     GL_GLEXT_PROTOTYPES
+    COCOS2D_DEBUG=1
     _CRT_SECURE_NO_WARNINGS
     _SCL_SECURE_NO_WARNINGS
 )
 
-
+# hello cpp
 add_executable(HelloCppwin32 WIN32
     samples/Cpp/HelloCpp/Classes/AppDelegate.cpp
     samples/Cpp/HelloCpp/Classes/HelloWorldScene.cpp
@@ -201,8 +202,8 @@ target_link_libraries(HelloCppwin32
 target_compile_definitions(HelloCppwin32 PRIVATE
     WIN32
     _DEBUG
-    COCOS2D_DEBUG=1
     _WINDOWS
+    COCOS2D_DEBUG=1
     _CRT_SECURE_NO_WARNINGS
-    _SCL_SECURE_NO_WARNINGS
+    _SCL_SECURE_NO_WARNINGS   
 )

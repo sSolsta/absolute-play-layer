@@ -23,3 +23,13 @@ target_link_libraries(HelloCppwin32
     
 )
 
+target_compile_definitions(HelloCppwin32 PRIVATE
+    WIN32
+    _DEBUG
+    _WINDOWS
+    COCOS2D_DEBUG=1
+    _CRT_SECURE_NO_WARNINGS
+    _SCL_SECURE_NO_WARNINGS
+    
+)
+
