@@ -151,7 +151,7 @@ target_include_directories(libcocos2d PUBLIC
 
 target_link_libraries(libcocos2d
     #${CMAKE_CURRENT_SOURCE_DIR}/cocos2dx/platform/third_party/win32/libraries/legacy_stdio_definitions.lib
-#    cocos2dx/platform/third_party/win32/libraries/opengl32.lib
+    #cocos2dx/platform/third_party/win32/libraries/opengl32.lib
     opengl32
     ${CMAKE_CURRENT_SOURCE_DIR}/cocos2dx/platform/third_party/win32/libraries/glew32.lib
     ${CMAKE_CURRENT_SOURCE_DIR}/cocos2dx/platform/third_party/win32/libraries/libzlib.lib
@@ -170,6 +170,37 @@ target_compile_definitions(libcocos2d PRIVATE
     _USRDLL
     COCOS2DXWIN32_EXPORTS
     GL_GLEXT_PROTOTYPES
+    _CRT_SECURE_NO_WARNINGS
+    _SCL_SECURE_NO_WARNINGS
+)
+
+
+add_executable(HelloCppwin32
+    samples/Cpp/HelloCpp/Classes/AppDelegate.cpp
+    samples/Cpp/HelloCpp/Classes/HelloWorldScene.cpp
+    samples/Cpp/HelloCpp/proj.win32/main.cpp
+)
+
+target_include_directories(HelloCppwin32 PUBLIC
+    cocos2dx
+    cocos2dx/include
+    cocos2dx/kazmath/include
+    cocos2dx/platform/win32
+    cocos2dx/platform/third_party/win32/OGLES
+    samples/Cpp/HelloCpp/Classes
+    samples/Cpp/HelloCpp/proj.win32
+)
+
+target_link_libraries(HelloCppwin32
+    opengl32
+    ${CMAKE_CURRENT_SOURCE_DIR}/cocos2dx/platform/third_party/win32/libraries/glew32.lib
+    libcocos2d
+)
+
+target_compile_definitions(HelloCppwin32 PRIVATE
+    WIN32
+    NDEBUG
+    _WINDOWS
     _CRT_SECURE_NO_WARNINGS
     _SCL_SECURE_NO_WARNINGS
 )

@@ -1,0 +1,25 @@
+add_definitions(-DUNICODE -D_UNICODE)
+
+add_executable(HelloCppwin32
+    samples/Cpp/HelloCpp/Classes/AppDelegate.cpp
+    samples/Cpp/HelloCpp/Classes/HelloWorldScene.cpp
+    samples/Cpp/HelloCpp/proj.win32/main.cpp
+)
+
+target_include_directories(HelloCppwin32 PUBLIC
+    cocos2dx
+    cocos2dx/include
+    cocos2dx/kazmath/include
+    cocos2dx/platform/win32
+    cocos2dx/platform/third_party/win32/OGLES
+    samples/Cpp/HelloCpp/Classes
+    samples/Cpp/HelloCpp/proj.win32
+)
+
+target_link_libraries(HelloCppwin32
+    opengl32.lib
+    glew32.lib
+    libcocos2d.lib
+    
+)
+

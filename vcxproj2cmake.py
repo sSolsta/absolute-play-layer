@@ -19,7 +19,7 @@ def canonicalise_link(link):
         return os.path.relpath(link)
 
 try:
-    path = r"E:\cocos2d-x-2.2.3\cocos2dx\proj.win32\cocos2d.vcxproj"
+    path = r"E:\cocos2d-x-2.2.3\samples\Cpp\HelloCpp\proj.win32\HelloCpp.vcxproj"
     target_conf = "Release|Win32"
     
     # python is annoying with namespaces
@@ -30,7 +30,8 @@ try:
     filters_tree = ET.parse(path+".filters")
     filters_root = filters_tree.getroot()
     
-    target = main_root.find("PropertyGroup[@Label='Globals']", ns).find("ProjectName", ns).text
+    globals = main_root.find("PropertyGroup[@Label='Globals']", ns)
+    target = (globals.find("ProjectName", ns) or globals.find("RootNamespace", ns)).text
     
     for prop_group in main_root.findall("PropertyGroup[@Label='Configuration']", ns):
         if target_conf in prop_group.get("Condition"):
@@ -89,8 +90,14 @@ try:
         if charset == "Unicode":
             f.write("add_definitions(-DUNICODE -D_UNICODE)\n\n")
         
-        if type == "DynamicLibrary":
+        if type == "Application":
+            f.write(f"add_executable({target}")
+        elif type == "DynamicLibrary":
             f.write(f"add_library({target} SHARED")
+        elif type == "StaticLibrary":
+            f.write(f"add_library({target} STATIC")
+        elif type == "Module":
+            f.write(f"add_library({target} MODULE")
         else:
             print(type)
             panic(fuck)
