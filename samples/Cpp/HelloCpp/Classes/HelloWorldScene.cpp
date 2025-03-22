@@ -27,10 +27,10 @@ bool HelloWorld::init()
     {
         return false;
     }
-    CCMessageBox("It runs code at least","Alert");
+    
     CCSize visibleSize = CCDirector::sharedDirector()->getVisibleSize();
     CCPoint origin = CCDirector::sharedDirector()->getVisibleOrigin();
-    
+
     /////////////////////////////
     // 2. add a menu item with "X" image, which is clicked to quit the program
     //    you may modify it.
@@ -49,7 +49,6 @@ bool HelloWorld::init()
     CCMenu* pMenu = CCMenu::create(pCloseItem, NULL);
     pMenu->setPosition(CCPointZero);
     this->addChild(pMenu, 1);
-    CCMessageBox("After creating close icon","Alert");
 
     /////////////////////////////
     // 3. add your codes below...
@@ -65,17 +64,16 @@ bool HelloWorld::init()
 
     // add the label as a child to this layer
     this->addChild(pLabel, 1);
-    CCMessageBox("After creating hello world text","Alert");
+
     // add "HelloWorld" splash screen"
     CCSprite* pSprite = CCSprite::create("HelloWorld.png");
-    CCMessageBox("created","Alert");
+
     // position the sprite on the center of the screen
     pSprite->setPosition(ccp(visibleSize.width/2 + origin.x, visibleSize.height/2 + origin.y));
-    CCMessageBox("pos set","Alert");
 
     // add the sprite as a child to this layer
     this->addChild(pSprite, 0);
-    CCMessageBox("After creating background","Alert");
+    
     return true;
 }
 
