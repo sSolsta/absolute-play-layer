@@ -22,6 +22,9 @@ def search(folder):
                 copyto = os.path.normpath(DST / rel)
                 if os.path.exists(copyfrom):
                     shutil.copy(copyfrom, copyto)
+                    deleted_rel = os.path.relpath(path)
+                    os.remove(path)
+                    print(f"Found {rel}, deleted {deleted_rel}")
                 else:
                     print(f"Couldn't find: {rel}")
 
@@ -30,4 +33,5 @@ try:
 except Exception:
     traceback.print_exc()
 
-input()
+print()
+input("ur done lmao")
