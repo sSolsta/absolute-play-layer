@@ -4,7 +4,9 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 project(cocos2d VERSION 0.1.0)
 
-#libcocos2d
+
+#  ================================ libcocos2d ================================
+
 add_library(libcocos2d SHARED
     cocos2dx/base_nodes/CCAtlasNode.cpp
     cocos2dx/base_nodes/CCNode.cpp
@@ -177,7 +179,324 @@ target_compile_definitions(libcocos2d PRIVATE
     _SCL_SECURE_NO_WARNINGS
 )
 
-# hello cpp
+
+#  ================================ libcocosdenshion ================================
+
+add_library(libCocosDenshion SHARED
+    CocosDenshion/win32/MciPlayer.cpp
+    CocosDenshion/win32/SimpleAudioEngine.cpp
+)
+
+target_include_directories(libCocosDenshion PUBLIC
+    CocosDenshion/Include
+    cocos2dx
+    cocos2dx/include
+    kazmath/include
+    cocos2dx/platform/win32
+    cocos2dx/platform/third_party/win32/OGLES
+    CocosDenshion/proj.win32
+)
+
+target_link_libraries(libCocosDenshion
+    winmm
+    libcocos2d
+)
+
+target_compile_definitions(libCocosDenshion PRIVATE
+    WIN32
+    _DEBUG
+    _WINDOWS
+    _USRDLL
+    COCOSDENSHIONWIN32_EXPORTS
+    _EXPORT_DLL_
+)
+
+
+#  ================================ libextensions ================================
+
+add_library(libExtensions STATIC
+    extensions/AssetsManager/AssetsManager.cpp
+    extensions/CCBReader/CCBAnimationManager.cpp
+    extensions/CCBReader/CCBFileLoader.cpp
+    extensions/CCBReader/CCBKeyframe.cpp
+    extensions/CCBReader/CCBReader.cpp
+    extensions/CCBReader/CCBSequence.cpp
+    extensions/CCBReader/CCBSequenceProperty.cpp
+    extensions/CCBReader/CCBValue.cpp
+    extensions/CCBReader/CCControlButtonLoader.cpp
+    extensions/CCBReader/CCControlLoader.cpp
+    extensions/CCBReader/CCData.cpp
+    extensions/CCBReader/CCLabelBMFontLoader.cpp
+    extensions/CCBReader/CCLabelTTFLoader.cpp
+    extensions/CCBReader/CCLayerColorLoader.cpp
+    extensions/CCBReader/CCLayerGradientLoader.cpp
+    extensions/CCBReader/CCLayerLoader.cpp
+    extensions/CCBReader/CCMenuItemImageLoader.cpp
+    extensions/CCBReader/CCMenuItemLoader.cpp
+    extensions/CCBReader/CCNode+CCBRelativePositioning.cpp
+    extensions/CCBReader/CCNodeLoader.cpp
+    extensions/CCBReader/CCNodeLoaderLibrary.cpp
+    extensions/CCBReader/CCParticleSystemQuadLoader.cpp
+    extensions/CCBReader/CCScale9SpriteLoader.cpp
+    extensions/CCBReader/CCScrollViewLoader.cpp
+    extensions/CCBReader/CCSpriteLoader.cpp
+    extensions/CocoStudio/Action/CCActionEaseEx.cpp
+    extensions/CocoStudio/Action/CCActionFrame.cpp
+    extensions/CocoStudio/Action/CCActionFrameEasing.cpp
+    extensions/CocoStudio/Action/CCActionManager.cpp
+    extensions/CocoStudio/Action/CCActionNode.cpp
+    extensions/CocoStudio/Action/CCActionObject.cpp
+    extensions/CocoStudio/Armature/animation/CCArmatureAnimation.cpp
+    extensions/CocoStudio/Armature/animation/CCProcessBase.cpp
+    extensions/CocoStudio/Armature/animation/CCTween.cpp
+    extensions/CocoStudio/Armature/CCArmature.cpp
+    extensions/CocoStudio/Armature/CCBone.cpp
+    extensions/CocoStudio/Armature/datas/CCDatas.cpp
+    extensions/CocoStudio/Armature/display/CCBatchNode.cpp
+    extensions/CocoStudio/Armature/display/CCDecorativeDisplay.cpp
+    extensions/CocoStudio/Armature/display/CCDisplayFactory.cpp
+    extensions/CocoStudio/Armature/display/CCDisplayManager.cpp
+    extensions/CocoStudio/Armature/display/CCSkin.cpp
+    extensions/CocoStudio/Armature/physics/CCColliderDetector.cpp
+    extensions/CocoStudio/Armature/utils/CCArmatureDataManager.cpp
+    extensions/CocoStudio/Armature/utils/CCArmatureDefine.cpp
+    extensions/CocoStudio/Armature/utils/CCDataReaderHelper.cpp
+    extensions/CocoStudio/Armature/utils/CCSpriteFrameCacheHelper.cpp
+    extensions/CocoStudio/Armature/utils/CCTransformHelp.cpp
+    extensions/CocoStudio/Armature/utils/CCTweenFunction.cpp
+    extensions/CocoStudio/Armature/utils/CCUtilMath.cpp
+    extensions/CocoStudio/Components/CCComAttribute.cpp
+    extensions/CocoStudio/Components/CCComAudio.cpp
+    extensions/CocoStudio/Components/CCComController.cpp
+    extensions/CocoStudio/Components/CCComRender.cpp
+    extensions/CocoStudio/Components/CCInputDelegate.cpp
+    extensions/CocoStudio/GUI/BaseClasses/UIWidget.cpp
+    extensions/CocoStudio/GUI/Layouts/UILayout.cpp
+    extensions/CocoStudio/GUI/Layouts/UILayoutDefine.cpp
+    extensions/CocoStudio/GUI/Layouts/UILayoutParameter.cpp
+    extensions/CocoStudio/GUI/System/CocosGUI.cpp
+    extensions/CocoStudio/GUI/System/UIHelper.cpp
+    extensions/CocoStudio/GUI/System/UITouchGroup.cpp
+    extensions/CocoStudio/GUI/UIWidgets/ScrollWidget/UIListView.cpp
+    extensions/CocoStudio/GUI/UIWidgets/ScrollWidget/UIPageView.cpp
+    extensions/CocoStudio/GUI/UIWidgets/ScrollWidget/UIScrollView.cpp
+    extensions/CocoStudio/GUI/UIWidgets/UIButton.cpp
+    extensions/CocoStudio/GUI/UIWidgets/UICheckBox.cpp
+    extensions/CocoStudio/GUI/UIWidgets/UIImageView.cpp
+    extensions/CocoStudio/GUI/UIWidgets/UILabel.cpp
+    extensions/CocoStudio/GUI/UIWidgets/UILabelAtlas.cpp
+    extensions/CocoStudio/GUI/UIWidgets/UILabelBMFont.cpp
+    extensions/CocoStudio/GUI/UIWidgets/UILoadingBar.cpp
+    extensions/CocoStudio/GUI/UIWidgets/UIRichText.cpp
+    extensions/CocoStudio/GUI/UIWidgets/UISlider.cpp
+    extensions/CocoStudio/GUI/UIWidgets/UITextField.cpp
+    extensions/CocoStudio/Json/DictionaryHelper.cpp
+    extensions/CocoStudio/Reader/GUIReader.cpp
+    extensions/CocoStudio/Reader/SceneReader.cpp
+    extensions/CocoStudio/Reader/WidgetReader/ButtonReader/ButtonReader.cpp
+    extensions/CocoStudio/Reader/WidgetReader/CheckBoxReader/CheckBoxReader.cpp
+    extensions/CocoStudio/Reader/WidgetReader/ImageViewReader/ImageViewReader.cpp
+    extensions/CocoStudio/Reader/WidgetReader/LabelAtlasReader/LabelAtlasReader.cpp
+    extensions/CocoStudio/Reader/WidgetReader/LabelBMFontReader/LabelBMFontReader.cpp
+    extensions/CocoStudio/Reader/WidgetReader/LabelReader/LabelReader.cpp
+    extensions/CocoStudio/Reader/WidgetReader/LayoutReader/LayoutReader.cpp
+    extensions/CocoStudio/Reader/WidgetReader/ListViewReader/ListViewReader.cpp
+    extensions/CocoStudio/Reader/WidgetReader/LoadingBarReader/LoadingBarReader.cpp
+    extensions/CocoStudio/Reader/WidgetReader/PageViewReader/PageViewReader.cpp
+    extensions/CocoStudio/Reader/WidgetReader/ScrollViewReader/ScrollViewReader.cpp
+    extensions/CocoStudio/Reader/WidgetReader/SliderReader/SliderReader.cpp
+    extensions/CocoStudio/Reader/WidgetReader/TextFieldReader/TextFieldReader.cpp
+    extensions/CocoStudio/Reader/WidgetReader/WidgetReader.cpp
+    extensions/CocoStudio/Trigger/ObjectFactory.cpp
+    extensions/CocoStudio/Trigger/TriggerBase.cpp
+    extensions/CocoStudio/Trigger/TriggerMng.cpp
+    extensions/CocoStudio/Trigger/TriggerObj.cpp
+    extensions/GUI/CCControlExtension/CCControl.cpp
+    extensions/GUI/CCControlExtension/CCControlButton.cpp
+    extensions/GUI/CCControlExtension/CCControlColourPicker.cpp
+    extensions/GUI/CCControlExtension/CCControlHuePicker.cpp
+    extensions/GUI/CCControlExtension/CCControlPotentiometer.cpp
+    extensions/GUI/CCControlExtension/CCControlSaturationBrightnessPicker.cpp
+    extensions/GUI/CCControlExtension/CCControlSlider.cpp
+    extensions/GUI/CCControlExtension/CCControlStepper.cpp
+    extensions/GUI/CCControlExtension/CCControlSwitch.cpp
+    extensions/GUI/CCControlExtension/CCControlUtils.cpp
+    extensions/GUI/CCControlExtension/CCInvocation.cpp
+    extensions/GUI/CCControlExtension/CCScale9Sprite.cpp
+    extensions/GUI/CCEditBox/CCEditBox.cpp
+    extensions/GUI/CCEditBox/CCEditBoxImplWin.cpp
+    extensions/GUI/CCScrollView/CCScrollView.cpp
+    extensions/GUI/CCScrollView/CCSorting.cpp
+    extensions/GUI/CCScrollView/CCTableView.cpp
+    extensions/GUI/CCScrollView/CCTableViewCell.cpp
+    extensions/LocalStorage/LocalStorage.cpp
+    extensions/network/HttpClient.cpp
+    extensions/network/Websocket.cpp
+    extensions/physics_nodes/CCPhysicsDebugNode.cpp
+    extensions/physics_nodes/CCPhysicsSprite.cpp
+    extensions/spine/Animation.cpp
+    extensions/spine/AnimationState.cpp
+    extensions/spine/AnimationStateData.cpp
+    extensions/spine/Atlas.cpp
+    extensions/spine/AtlasAttachmentLoader.cpp
+    extensions/spine/Attachment.cpp
+    extensions/spine/AttachmentLoader.cpp
+    extensions/spine/Bone.cpp
+    extensions/spine/BoneData.cpp
+    extensions/spine/CCSkeleton.cpp
+    extensions/spine/CCSkeletonAnimation.cpp
+    extensions/spine/extension.cpp
+    extensions/spine/Json.cpp
+    extensions/spine/RegionAttachment.cpp
+    extensions/spine/Skeleton.cpp
+    extensions/spine/SkeletonData.cpp
+    extensions/spine/SkeletonJson.cpp
+    extensions/spine/Skin.cpp
+    extensions/spine/Slot.cpp
+    extensions/spine/SlotData.cpp
+    extensions/spine/spine-cocos2dx.cpp
+    extensions/proj.win32/Win32InputBox.cpp
+)
+
+target_include_directories(libExtensions PUBLIC
+    external/chipmunk/include/chipmunk
+    external/sqlite3/include
+    external
+    external/libwebsockets/win32/include
+    cocos2dx
+    cocos2dx/include
+    cocos2dx/kazmath/include
+    cocos2dx/platform/win32
+    cocos2dx/platform/third_party/win32
+    cocos2dx/platform/third_party/win32/pthread
+    cocos2dx/platform/third_party/win32/OGLES
+    cocos2dx/platform/third_party/win32/zlib
+    CocosDenshion/include
+    extensions
+    extensions/proj.win32
+)
+
+target_compile_definitions(libExtensions PRIVATE
+    WIN32
+    _WINDOWS
+    _DEBUG
+    _LIB
+    COCOS2D_DEBUG=1
+    CC_ENABLE_CHIPMUNK_INTEGRATION=1
+    _CRT_SECURE_NO_WARNINGS
+    _SCL_SECURE_NO_WARNINGS
+)
+
+
+#  ================================ libbox2d ================================
+
+add_library(libBox2D STATIC
+    external/Box2D/Collision/b2BroadPhase.cpp
+    external/Box2D/Collision/b2CollideCircle.cpp
+    external/Box2D/Collision/b2CollideEdge.cpp
+    external/Box2D/Collision/b2CollidePolygon.cpp
+    external/Box2D/Collision/b2Collision.cpp
+    external/Box2D/Collision/b2Distance.cpp
+    external/Box2D/Collision/b2DynamicTree.cpp
+    external/Box2D/Collision/b2TimeOfImpact.cpp
+    external/Box2D/Collision/Shapes/b2ChainShape.cpp
+    external/Box2D/Collision/Shapes/b2CircleShape.cpp
+    external/Box2D/Collision/Shapes/b2EdgeShape.cpp
+    external/Box2D/Collision/Shapes/b2PolygonShape.cpp
+    external/Box2D/Common/b2BlockAllocator.cpp
+    external/Box2D/Common/b2Draw.cpp
+    external/Box2D/Common/b2Math.cpp
+    external/Box2D/Common/b2Settings.cpp
+    external/Box2D/Common/b2StackAllocator.cpp
+    external/Box2D/Common/b2Timer.cpp
+    external/Box2D/Dynamics/b2Body.cpp
+    external/Box2D/Dynamics/b2ContactManager.cpp
+    external/Box2D/Dynamics/b2Fixture.cpp
+    external/Box2D/Dynamics/b2Island.cpp
+    external/Box2D/Dynamics/b2World.cpp
+    external/Box2D/Dynamics/b2WorldCallbacks.cpp
+    external/Box2D/Dynamics/Contacts/b2ChainAndCircleContact.cpp
+    external/Box2D/Dynamics/Contacts/b2ChainAndPolygonContact.cpp
+    external/Box2D/Dynamics/Contacts/b2CircleContact.cpp
+    external/Box2D/Dynamics/Contacts/b2Contact.cpp
+    external/Box2D/Dynamics/Contacts/b2ContactSolver.cpp
+    external/Box2D/Dynamics/Contacts/b2EdgeAndCircleContact.cpp
+    external/Box2D/Dynamics/Contacts/b2EdgeAndPolygonContact.cpp
+    external/Box2D/Dynamics/Contacts/b2PolygonAndCircleContact.cpp
+    external/Box2D/Dynamics/Contacts/b2PolygonContact.cpp
+    external/Box2D/Dynamics/Joints/b2DistanceJoint.cpp
+    external/Box2D/Dynamics/Joints/b2FrictionJoint.cpp
+    external/Box2D/Dynamics/Joints/b2GearJoint.cpp
+    external/Box2D/Dynamics/Joints/b2Joint.cpp
+    external/Box2D/Dynamics/Joints/b2MouseJoint.cpp
+    external/Box2D/Dynamics/Joints/b2PrismaticJoint.cpp
+    external/Box2D/Dynamics/Joints/b2PulleyJoint.cpp
+    external/Box2D/Dynamics/Joints/b2RevoluteJoint.cpp
+    external/Box2D/Dynamics/Joints/b2RopeJoint.cpp
+    external/Box2D/Dynamics/Joints/b2WeldJoint.cpp
+    external/Box2D/Dynamics/Joints/b2WheelJoint.cpp
+    external/Box2D/Rope/b2Rope.cpp
+)
+
+target_include_directories(libBox2D PUBLIC
+    external
+    external/Box2D/proj.win32
+)
+target_compile_definitions(libBox2D PRIVATE
+    WIN32
+    _DEBUG
+    _LIB
+)
+
+
+#  ================================ libchipmunk ================================
+
+add_library(libchipmunk STATIC
+    external/chipmunk/src/chipmunk.c
+    external/chipmunk/src/cpArbiter.c
+    external/chipmunk/src/cpArray.c
+    external/chipmunk/src/cpBB.c
+    external/chipmunk/src/cpBBTree.c
+    external/chipmunk/src/cpBody.c
+    external/chipmunk/src/cpCollision.c
+    external/chipmunk/src/cpHashSet.c
+    external/chipmunk/src/cpPolyShape.c
+    external/chipmunk/src/cpShape.c
+    external/chipmunk/src/cpSpace.c
+    external/chipmunk/src/cpSpaceComponent.c
+    external/chipmunk/src/cpSpaceHash.c
+    external/chipmunk/src/cpSpaceQuery.c
+    external/chipmunk/src/cpSpaceStep.c
+    external/chipmunk/src/cpSpatialIndex.c
+    external/chipmunk/src/cpSweep1D.c
+    external/chipmunk/src/cpVect.c
+    external/chipmunk/src/constraints/cpConstraint.c
+    external/chipmunk/src/constraints/cpDampedRotarySpring.c
+    external/chipmunk/src/constraints/cpDampedSpring.c
+    external/chipmunk/src/constraints/cpGearJoint.c
+    external/chipmunk/src/constraints/cpGrooveJoint.c
+    external/chipmunk/src/constraints/cpPinJoint.c
+    external/chipmunk/src/constraints/cpPivotJoint.c
+    external/chipmunk/src/constraints/cpRatchetJoint.c
+    external/chipmunk/src/constraints/cpRotaryLimitJoint.c
+    external/chipmunk/src/constraints/cpSimpleMotor.c
+    external/chipmunk/src/constraints/cpSlideJoint.c
+)
+
+target_include_directories(libchipmunk PUBLIC
+    external/chipmunk/include/chipmunk
+    external/chipmunk/proj.win32
+)
+
+target_compile_definitions(libchipmunk PRIVATE
+    WIN32
+    _DEBUG
+    _LIB
+)
+
+
+#  ================================ hellocpp ================================
+
 add_executable(HelloCppwin32 WIN32
     samples/Cpp/HelloCpp/Classes/AppDelegate.cpp
     samples/Cpp/HelloCpp/Classes/HelloWorldScene.cpp

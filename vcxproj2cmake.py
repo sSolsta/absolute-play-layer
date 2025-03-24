@@ -19,7 +19,7 @@ def canonicalise_link(link):
         return os.path.relpath(link)
 
 try:
-    path = r"E:\cocos2d-x-2.2.3\samples\Cpp\TestCpp226\proj.win32\TestCpp.vcxproj"
+    path = r"E:\cocos2d-x-2.2.3\external\chipmunk\proj.win32\chipmunk.vcxproj"
     target_conf = "Debug|Win32"
     
     # python is annoying with namespaces

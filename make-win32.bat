@@ -8,5 +8,5 @@ cmake --build cmakew32 --config Release
 set DEST=cmakew32\Release
 
 xcopy dlls\ %DEST% /e /y
-xcopy samples\Cpp\HelloCpp\Resources %DEST%\Resources /e /y
+xcopy samples\Cpp\HelloCpp\Resources %DEST% /e /y
 
