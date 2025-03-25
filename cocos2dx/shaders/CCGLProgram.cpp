@@ -218,13 +218,14 @@ bool CCGLProgram::compileShader(GLuint * shader, GLenum type, const GLchar* sour
 		glGetShaderSource(*shader, length, NULL, src);
 		CCLOG("cocos2d: ERROR: Failed to compile shader:\n%s", src);
         
+        CCMessageBox(src, "Shader compile failure!");
         if (type == GL_VERTEX_SHADER)
         {
-            CCLOG("cocos2d: %s", vertexShaderLog());
+            //CCLOG("cocos2d: %s", vertexShaderLog());
         }
         else
         {
-            CCLOG("cocos2d: %s", fragmentShaderLog());
+            //CCLOG("cocos2d: %s", fragmentShaderLog());
         }
         free(src);
 
